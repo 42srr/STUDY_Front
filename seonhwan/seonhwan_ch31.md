@@ -20,11 +20,44 @@ console.log(regExp1.test(tel), regExp2.test(tel), regExp3.test(tel));	// true tr
 ```
 
 ## 31.2 정규 표현식의 생성
-- 
+- 정규 표현식 리터럴(일반적), RegExp 생성자 함수로 생성 가능
+- 정규 표현식 리터럴 : /패턴/플래그 (앞뒤 '/'는 각각 시작, 종료 기호)
+- RegExp 생성자 : new RegExp(pattern[, flags])
+```
+const 	target = 'Is this all there is?';
+let		regExp = /is/;
+
+// 아래 결과 모두 true
+console.log(/is/i.test(target));
+console.log(new RegExp(/is/i).test(target));	// ES6
+console.log(new RegExp('is', 'i').test(target));
+console.log(new RegExp(/is/, 'i').test(target));
+
+regExp = new RegExp(/is/, 'ig');
+console.log(target.match(regExp));
+
+/*
+Nullish Coalescing 연산자 '??' (ECMAScript 2020(ES11))
+- 왼쪽 피연산자가 null 또는 undefined 일 때만 오른쪽 피연산자 반환(아니면 왼쪽 피연산자 반환)
+- 즉, 왼쪽 피연산자가 값이 확정되어 있는 변수인 경우만 그대로 반환
+*/
+const count = (str, char) => (str.match(new RegExp(char, 'gi')) ?? []).length;
+
+console.log(count('Is this all there is?', 'is'));	// 3
+console.log(count('Is this all there is?', 'abc'));	// 0
+console.log(1 ?? [1, 2, 3]);						// 1
+console.log(null ?? [1, 2, 3]);						// [1, 2, 3]
+console.log(undefined ?? "abc");					// "abc"
+```
 
 ## 31.3 RegExp 메서드
 
 ### 31.3.1 RegExp.prototype.exec
+- 인수로 전달받은 문자열에 대해 정규 표현식 패턴을 검색하여 매칭 결과를 배열로 반환(결과 없으면 null)
+- g 플래그(문자열 내 모든 패턴 검색)를 지정해도 첫 번째 매칭 결과만 반환
+```
+
+```
 
 ### 31.3.2 RegExp.prototype.test
 
